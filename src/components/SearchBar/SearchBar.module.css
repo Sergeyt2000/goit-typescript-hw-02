@@ -1,0 +1,16 @@
+.header {
+  background-color: rgb(11, 11, 202);
+  padding: 20px 0;
+}
+.searchBar {
+  display: flex;
+
+  /* flex-direction: column; */
+  margin-bottom: 30px;
+  gap: 10px;
+  justify-content: center;
+  margin: 0 auto;
+}
+.input {
+    width: 400px;
+}

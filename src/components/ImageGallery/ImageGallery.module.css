@@ -1,0 +1,15 @@
+.gallery {
+    padding: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+.galleryItem {
+    height: 300px;
+    width: calc((100% - (3 * 30px)) / 4);    
+    transition: transform 0.3s;
+}
+.galleryItem:hover,
+.galleryItem:focus {
+  transform: scale(1.04);
+}
