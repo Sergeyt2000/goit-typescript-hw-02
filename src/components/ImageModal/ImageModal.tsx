@@ -1,9 +1,10 @@
 import css from './ImageModal.module.css';
 import Modal from 'react-modal';
+import { ImageModalProps } from './ImageModal.types';
 
 Modal.setAppElement("#root");
 
-export default function ImageModal({ isModalOpen, closeModal, modalImage, altDescription }) {
+export default function ImageModal({ isModalOpen, closeModal, modalImage, altDescription }: ImageModalProps) {
   return (
     <Modal
       isOpen={isModalOpen}
@@ -11,7 +12,7 @@ export default function ImageModal({ isModalOpen, closeModal, modalImage, altDes
       className={css.modal}
       overlayClassName={css.overlay}
     >
-      <div>
+      <div className={css.modalContent}>
         <img className={css.modalImg} src={modalImage} alt={altDescription} />
         <p className={css.modalText}>{altDescription}</p>
       </div>

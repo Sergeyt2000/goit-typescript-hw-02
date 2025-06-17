@@ -1,10 +1,13 @@
 import css from './SearchBar.module.css';
 import toast, { Toaster } from "react-hot-toast";
+import { SearchBarProps } from "./SearchBar.types";
+import { ChangeEvent } from "react";
 
-export default function SearchBar({ onSubmit, onNewSearch }) {
-  const handleSubmit = (event) => {
+
+export default function SearchBar({ onSubmit, onNewSearch }: SearchBarProps) {
+  const handleSubmit = (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const query = event.target.query.value.trim();
+    const query: string = event.target.query.value.trim();
     if (!query) {
       toast.error("Please enter a search term.");
       return;
@@ -24,7 +27,7 @@ export default function SearchBar({ onSubmit, onNewSearch }) {
           autoFocus
           placeholder="Search images and photos"
         />
-        <button type="submit">Search</button>
+        <button className={css.searchBtn} type="submit">Search</button>
         <Toaster
           position="top-right"
           reverseOrder={false}

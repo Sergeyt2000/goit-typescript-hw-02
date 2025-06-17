@@ -7,36 +7,39 @@ import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import ImageModal from "../ImageModal/ImageModal";
 import toast, { Toaster } from "react-hot-toast";
+import { Image } from "./App.types";
+import { FetchDataResponse } from "./App.types";
+import { string } from "yup";
 
 export default function App() {
-  const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [error, setError] = useState(null);
+  const [images, setImages] = useState<Image[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalImage, setModalImage] = useState("");
-  const [altDescription, setAltDescription] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [modalImage, setModalImage] = useState<string>("");
+  const [altDescription, setAltDescription] = useState<string>("");
   
-  const onLoadMore = () => {
-    setCurrentPage((prevPage) => prevPage + 1);
+  const onLoadMore = (): void => {
+    setCurrentPage((prevPage: number) => prevPage + 1);
   }
 
-  const onSearchResetImages = () => {
+  const onSearchResetImages = (): void => {
     setImages([]);
     setCurrentPage(1);
   }
 
-  const openModal = () => {
+  const openModal = (): void => {
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
+  const closeModal = (): void => {
     setIsModalOpen(false);
   };
   
-   const updateModalData = (src, alt) => {
+   const updateModalData = (src: string, alt: string) => {
      setModalImage(src);
      setAltDescription(alt);
    };
@@ -49,8 +52,7 @@ export default function App() {
       try {
         setError(null);
         setLoading(true);
-        const data = await fetchImages(searchQuery, currentPage);
-        // console.log("data", data);
+        const data: FetchDataResponse = await fetchImages(searchQuery, currentPage);
         setTotalPages(data.total_pages);
         
         if (data.results.length === 0) {
@@ -59,17 +61,14 @@ export default function App() {
           return;
         }
         setImages((prevImages) => [...prevImages, ...data.results]);       
-      } catch (error){
-        setError(error);
-        setSearchQuery("");        
-        // toast.error("Error fetching images. Please try again later.");        
+      } catch {
+        setError("Error fetching data");
+        setSearchQuery("");     
       } finally {
         setLoading(false);
       }
     }
     fetchData();
-    // console.log("searchQuery", searchQuery);
-    // console.log("currentPage", currentPage);
   }, [searchQuery, currentPage]);
   return (
     <div>
