@@ -39,7 +39,7 @@ export default function App() {
     setIsModalOpen(false);
   };
   
-   const updateModalData = (src: string, alt: string) => {
+   const updateModalData = (src: string, alt: string): void => {
      setModalImage(src);
      setAltDescription(alt);
    };
